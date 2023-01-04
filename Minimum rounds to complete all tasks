@@ -1,0 +1,56 @@
+You are given a 0-indexed integer array tasks, where tasks[i] represents the difficulty level of a task. In each round, you can complete either 2 or 3 tasks of the same difficulty level.
+
+Return the minimum rounds required to complete all the tasks, or -1 if it is not possible to complete all the tasks
+
+
+Input: tasks = [2,2,3,3,2,4,4,4,4,4]
+Output: 4
+Explanation: To complete all the tasks, a possible plan is:
+- In the first round, you complete 3 tasks of difficulty level 2. 
+- In the second round, you complete 2 tasks of difficulty level 3. 
+- In the third round, you complete 3 tasks of difficulty level 4. 
+- In the fourth round, you complete 2 tasks of difficulty level 4.  
+It can be shown that all the tasks cannot be completed in fewer than 4 rounds, so the answer is 4.
+
+class Solution {
+public:
+    int minimumRounds(vector<int>& tasks) {
+       
+       unordered_map<int,int>mp;
+       int minRounds=0;
+       //getting frequency of numbers occuring
+       
+       for(auto task: tasks){
+         mp[task]++;
+       }
+       
+       for(auto[task,freq]:mp){
+          
+          if(freq==1)
+           return -1;
+         
+         //if they are in group of 3 
+          if(freq % 3==0){
+            minRounds+= freq/3;
+          }
+          if they are more then first they will be grouped in 3 then remaining will grouped
+          else{
+            minRounds+= freq/3+1;
+          }
+       }
+       return minRounds;
+      }
+    };
+    
+Algorithm:
+
+Iterate over the integers in the array tasks, and for each integer store the frequency in the map freq.
+
+Initialize the answer variable minimumRounds to 0.
+
+Iterate over the frequencies in the map freq and for each frequency count:
+
+If count is 1, then we should stop and return -1.
+Add count / 3 to the answer variable minimumRounds, if count is divisible by 333.
+Otherwise, add count / 3 + 1 to minimumRounds.
+Return minimumRounds.
